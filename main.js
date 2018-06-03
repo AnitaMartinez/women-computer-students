@@ -1,51 +1,56 @@
-'use strict';
+const application = (function() {
+    'use strict';
 
-//run http-server
+    let studentsListPerYear;
 
-function convertCSVtoJSON(csv) {
-    const lines = csv.split("\n");
-    const result = [];
-    const headers = lines[0].split(";");
-    for (let i = 1; i < lines.length; i++) {
-        const obj = {};
-        const currentline = lines[i].split(";");
-        for (let j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j];
+    getDataStudents(function (data) {
+        studentsListPerYear = data;
+        console.log(studentsListPerYear);
+    });
+
+
+    function getDataStudents(callback){
+        const studentsPerYear = [];
+        const firstYear = 2008;
+        const lastYear = 2016;
+
+        for (let firstYearOfSchoolYear = firstYear; firstYearOfSchoolYear <= lastYear; firstYearOfSchoolYear++) {
+            let secondYearOfSchoolYear = firstYearOfSchoolYear + 1;
+            fetch(`http://localhost:8080/csv/${firstYearOfSchoolYear}-${secondYearOfSchoolYear}.csv`)
+                .then((response) => {
+                    return response.text();
+                })
+                .then((text) => {
+                    return convertCSVtoJSON(text);
+                })
+                .then((oneYearStudents) => {
+                    if (oneYearStudents.length <= 1) {
+                        studentsPerYear.push(oneYearStudents[0]);
+                    }
+                    else {
+                        studentsPerYear.push(oneYearStudents)
+                    }
+                })
         }
-        result.push(obj);
+        callback(studentsPerYear);
     }
-    return result;
-}
 
-const dataStudents = [];
-
-const firstYear = 2008;
-const lastYear = 2016;
-
-for (let yearA = firstYear; yearA <= lastYear; yearA++){
-    let yearB = yearA + 1;
-    fetch(`http://localhost:8080/csv/${yearA}-${yearB}.csv`)
-        .then((response) => {
-            return response.text();
-        })
-        .then((text) => {
-            return convertCSVtoJSON(text);
-        })
-        .then((arrayOfObjectsWithData) => {
-            if(arrayOfObjectsWithData.length <= 1){
-                dataStudents.push(arrayOfObjectsWithData[0]);
+    function convertCSVtoJSON(csv) {
+        const lines = csv.split("\n");
+        const result = [];
+        const headers = lines[0].split(";");
+        for (let i = 1; i < lines.length; i++) {
+            const obj = {};
+            const currentline = lines[i].split(";");
+            for (let j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentline[j];
             }
-            else {
-                dataStudents.push(arrayOfObjectsWithData)
-            }
-
-            return arrayOfObjectsWithData;
-        })
-        .then((json) => {
-            console.log(dataStudents);
-        })
-}
+            result.push(obj);
+        }
+        return result;
+    }
 
 
 
+});
 
