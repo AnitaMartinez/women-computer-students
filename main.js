@@ -19,9 +19,12 @@ function convertCSVtoJSON(csv) {
 
 const dataStudents = [];
 
-for (let i = 2008; i <= 2016; i++){
-    let j = i + 1;
-    fetch(`http://localhost:8080/csv/${i}-${j}.csv`)
+const firstYear = 2008;
+const lastYear = 2016;
+
+for (let yearA = firstYear; yearA <= lastYear; yearA++){
+    let yearB = yearA + 1;
+    fetch(`http://localhost:8080/csv/${yearA}-${yearB}.csv`)
         .then((response) => {
             return response.text();
         })
@@ -42,5 +45,7 @@ for (let i = 2008; i <= 2016; i++){
             console.log(dataStudents);
         })
 }
+
+
 
 
