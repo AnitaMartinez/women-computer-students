@@ -1,0 +1,22 @@
+{
+  "name": "womenit",
+  "version": "1.0.0",
+  "description": "side project",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnitaMartinez/women-computer-students.git"
+  },
+  "author": "ana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnitaMartinez/women-computer-students/issues"
+  },
+  "homepage": "https://github.com/AnitaMartinez/women-computer-students#readme",
+  "dependencies": {
+    "chart.js": "^2.7.2"
+  }
+}
