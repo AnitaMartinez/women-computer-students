@@ -2,7 +2,7 @@
 
 //run http-server
 
-function csvJSON(csv) {
+function convertCSVtoJSON(csv) {
     const lines = csv.split("\n");
     const result = [];
     const headers = lines[0].split(";");
@@ -17,14 +17,30 @@ function csvJSON(csv) {
     return result;
 }
 
-fetch("http://localhost:8080/csv/2016-2017.csv")
-    .then((response) => {
-        return response.text();
-    })
-    .then((text) => {
-        return csvJSON(text);
-    })
-    .then((json) => {
-        console.log(json);
-    })
+const dataStudents = [];
+
+for (let i = 2008; i <= 2016; i++){
+    let j = i + 1;
+    fetch(`http://localhost:8080/csv/${i}-${j}.csv`)
+        .then((response) => {
+            return response.text();
+        })
+        .then((text) => {
+            return convertCSVtoJSON(text);
+        })
+        .then((arrayOfObjectsWithData) => {
+            if(arrayOfObjectsWithData.length <= 1){
+                dataStudents.push(arrayOfObjectsWithData[0]);
+            }
+            else {
+                dataStudents.push(arrayOfObjectsWithData)
+            }
+
+            return arrayOfObjectsWithData;
+        })
+        .then((json) => {
+            console.log(dataStudents);
+        })
+}
+
 
