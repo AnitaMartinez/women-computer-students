@@ -1,28 +1,54 @@
-function getDataStudents(callback) {
+function getDataStudents() {
     'use strict';
-    const studentsPerYear = [];
-    const firstYear = 2008;
-    const lastYear = 2016;
+    return new Promise((resolve, reject) => {
+        const studentsPerYear = [];
+        const firstYear = 2008;
+        const lastYear = 2016;
+        const urls = [];
+        for (let firstYearOfSchoolYear = firstYear; firstYearOfSchoolYear <= lastYear; firstYearOfSchoolYear++) {
+            let secondYearOfSchoolYear = firstYearOfSchoolYear + 1;
+            urls.push(`http://localhost:8080/csv/${firstYearOfSchoolYear}-${secondYearOfSchoolYear}.csv`);
+        }
+        Promise.all(urls.map(url =>
+            fetch(url).then(resp => resp.text())
+        )).then(texts => {
+            texts.forEach(text=>{
+                studentsPerYear.push(parsingData(text));
+            });
+            resolve(studentsPerYear);
+        })
 
-    for (let firstYearOfSchoolYear = firstYear; firstYearOfSchoolYear <= lastYear; firstYearOfSchoolYear++) {
-        let secondYearOfSchoolYear = firstYearOfSchoolYear + 1;
-        fetch(`http://localhost:8080/csv/${firstYearOfSchoolYear}-${secondYearOfSchoolYear}.csv`)
-            .then((response) => {
-                return response.text();
-            })
-            .then((text) => {
-                return convertCSVtoJSON(text);
-            })
-            .then((oneYearStudents) => {
-                if (oneYearStudents.length <= 1) {
-                    studentsPerYear.push(oneYearStudents[0]);
-                }
-                else {
-                    studentsPerYear.push(oneYearStudents)
-                }
-            })
+    })
+}
+
+function parsingData(data) {
+    const studentsData = convertCSVtoJSON(data);
+    if (studentsData.length <= 1) {
+        transformObject(studentsData[0]);
+        return studentsData[0];
     }
-    callback(studentsPerYear);
+    else {
+        for(const studentsPerOneYear of studentsData) {
+            transformObject(studentsPerOneYear);
+        }
+        return studentsData
+    }
+}
+
+function transformObject(data) {
+    const studentsPerOneYear = data;
+    studentsPerOneYear.women = parseInt(studentsPerOneYear.Mujeres);
+    studentsPerOneYear.men = parseInt(studentsPerOneYear.Hombres);
+    delete studentsPerOneYear['Mujeres'];
+    delete studentsPerOneYear['Hombres'];
+    const firstKeyObject = Object.keys(studentsPerOneYear)[0];
+    const strSchoolYear = firstKeyObject.split(" ")[1].toString();
+    const schoolYearInitial = parseInt(strSchoolYear.split("/")[0]);
+    const schoolYearFinal = parseInt(strSchoolYear.split("/")[1]);
+    studentsPerOneYear.schoolYearInitial = schoolYearInitial;
+    studentsPerOneYear.schoolYearFinal = schoolYearFinal;
+    studentsPerOneYear.degree = studentsPerOneYear[firstKeyObject].split("-")[1].trim();
+    delete studentsPerOneYear[firstKeyObject];
 }
 
 function convertCSVtoJSON(csv) {
@@ -32,9 +58,9 @@ function convertCSVtoJSON(csv) {
     const headers = lines[0].split(";");
     for (let i = 1; i < lines.length; i++) {
         const obj = {};
-        const currentline = lines[i].split(";");
+        const currentLine = lines[i].split(";");
         for (let j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j];
+            obj[headers[j]] = currentLine[j];
         }
         result.push(obj);
     }
