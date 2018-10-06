@@ -23,16 +23,10 @@ function getDataStudents() {
 
 function parsingData(data) {
     const studentsData = convertCSVtoJSON(data);
-    if (studentsData.length <= 1) {
-        transformObject(studentsData[0]);
-        return studentsData[0];
+    for (const studentsPerOneYear of studentsData) {
+        transformObject(studentsPerOneYear);
     }
-    else {
-        for(const studentsPerOneYear of studentsData) {
-            transformObject(studentsPerOneYear);
-        }
-        return studentsData
-    }
+    return studentsData
 }
 
 function transformObject(data) {
