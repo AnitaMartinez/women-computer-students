@@ -1,0 +1,77 @@
+
+/*Generals*/
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 300;
+    color : #2E2E2E;
+}
+
+button {
+    cursor : pointer;
+    border : none;
+    background: none;
+    outline: inherit;
+}
+
+button:hover {
+    opacity: 0.5;
+}
+
+
+
+/*Header*/
+
+.header {
+    height: 60px;
+    background-color: #2E2E2E;
+    box-shadow: 0 -1px 8px #2E2E2E;
+    border-bottom: solid 1px #2E2E2E;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Main*/
+
+.main {
+    padding: 15px;
+}
+
+.separator {
+    border : 3px solid #2E2E2E;
+    margin-top: 25px;
+    margin-bottom: 35px;
+}
+
+.container-icons {
+    margin-top : 20px;
+    margin-bottom: 20px;
+}
+
+/*Typo*/
+
+.title-lg {
+    font-family: Knowledge,Source Sans Pro,Arial,sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color : #FFF;
+    margin : 0;
+}
+
+.title-md {
+    font-size : 1rem;
+    text-align: center;
+}
+
+.title-sm {
+    font-family: Knowledge,Source Sans Pro,Arial,sans-serif;
+    font-size : 0.8rem;
+    text-transform: uppercase;
+    color : #2E2E2E;
+}

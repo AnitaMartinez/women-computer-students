@@ -1,5 +1,6 @@
-function getDataStudents() {
-    'use strict';
+'use strict'; //???
+
+const getDataStudents = () => {
     return new Promise((resolve, reject) => {
         const studentsPerYear = [];
         const firstYear = 2008;
@@ -12,24 +13,24 @@ function getDataStudents() {
         Promise.all(urls.map(url =>
             fetch(url).then(resp => resp.text())
         )).then(texts => {
-            texts.forEach(text=>{
+            texts.forEach(text => {
                 studentsPerYear.push(parsingData(text));
             });
             resolve(studentsPerYear);
         })
 
     })
-}
+};
 
-function parsingData(data) {
+const parsingData = data => {
     const studentsData = convertCSVtoJSON(data);
     for (const studentsPerOneYear of studentsData) {
         transformObject(studentsPerOneYear);
     }
     return studentsData
-}
+};
 
-function transformObject(data) {
+const transformObject = data => {
     const studentsPerOneYear = data;
     studentsPerOneYear.women = parseInt(studentsPerOneYear.Mujeres);
     studentsPerOneYear.men = parseInt(studentsPerOneYear.Hombres);
@@ -43,10 +44,9 @@ function transformObject(data) {
     studentsPerOneYear.schoolYearFinal = schoolYearFinal;
     studentsPerOneYear.degree = studentsPerOneYear[firstKeyObject].split("-")[1].trim();
     delete studentsPerOneYear[firstKeyObject];
-}
+};
 
-function convertCSVtoJSON(csv) {
-    'use strict';
+const convertCSVtoJSON = csv => {
     const lines = csv.split("\n");
     const result = [];
     const headers = lines[0].split(";");
@@ -59,4 +59,4 @@ function convertCSVtoJSON(csv) {
         result.push(obj);
     }
     return result;
-}
+};
