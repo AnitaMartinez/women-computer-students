@@ -1,6 +1,10 @@
 (function () {
     'use strict';
     const ctx = document.getElementById("chart").getContext('2d');
+    const womenBtn = document.getElementById('btnWomen');
+    const menBtn = document.getElementById('btnMen');
+    const resetBtn = document.getElementById('btnReset');
+    const genderBtns = document.getElementsByClassName('btn-gender');
     let myChart;
     let studentsPerYear = [];
     const idDataset = {
@@ -56,12 +60,12 @@
         });
     };
 
-    const updateChartByGender = (idDatasetToDelete, idDatasetToAdd) => {
-        let datasetToDelete = myChart.data.datasets.find(dataset => dataset.idDataset === idDatasetToDelete);
-        let datasetToAdd = myChart.data.datasets.find(dataset => dataset.idDataset === idDatasetToAdd);
+    const updateChartByGender = ({idDataToDelete, idDataToAdd}) => {
+        let datasetToDelete = myChart.data.datasets.find(dataset => dataset.idDataset === idDataToDelete);
+        let datasetToAdd = myChart.data.datasets.find(dataset => dataset.idDataset === idDataToAdd);
         datasetToDelete.data = [];
         if(datasetToAdd.data.length === 0) {
-            datasetToAdd.data = studentsPerYear[idDatasetToAdd];
+            datasetToAdd.data = studentsPerYear[idDataToAdd];
         }
         myChart.update();
     };
@@ -72,28 +76,42 @@
         myChart.update();
     };
 
+    const highlightBtn = (button) => {
+        for(let i = 0; i < genderBtns.length; i++){
+            if(genderBtns[i].classList.contains('underline')){
+                genderBtns[i].classList.remove('underline');
+            }
+        }
+        button.classList.add('underline');
+    };
+
     const onWomenBtn = () => {
-        updateChartByGender(idDataset.men, idDataset.women);
+        updateChartByGender({idDataToDelete : idDataset.men, idDataToAdd : idDataset.women});
+        highlightBtn(womenBtn);
     };
 
     const onMenBtn = () => {
-        updateChartByGender(idDataset.women, idDataset.men);
+        updateChartByGender({idDataToDelete : idDataset.women, idDataToAdd : idDataset.men});
+        highlightBtn(menBtn);
+    };
+
+    const onResetBtn = () => {
+        resetChart();
+        highlightBtn(resetBtn);
     };
 
     const onGenderButtons = () => {
-        const womenBtn = document.getElementById('btnWomen');
-        const menBtn = document.getElementById('btnMen');
-        const resetBtn = document.getElementById('btnReset');
         womenBtn.addEventListener('click', onWomenBtn);
         menBtn.addEventListener('click', onMenBtn);
-        resetBtn.addEventListener('click', resetChart);
+        resetBtn.addEventListener('click', onResetBtn);
     };
 
-    getDataStudents()  //ES6 ??
+    getDataStudents()
         .then(dataStudents => {
-            //NO SÉ SI ESTO VA A AQUÍ O EN DATA.JS
-            dataStudents.shift(); //temporal, por el NaN
-            studentsPerYear = {women: [], men: [], year: []};
+            console.log('dataStudents', dataStudents);
+            studentsPerYear = dataStudents;
+            dataStudents.shift(); //TODO: temporal, por el NaN
+            studentsPerYear = {women: [], men: [], year: []};  //TODO : DATA.JS
             dataStudents.forEach(studentsOneYear => {
                 let women = 0;
                 let men = 0;

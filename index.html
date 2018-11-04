@@ -11,33 +11,30 @@
 
 <body>
 
-    <header class="header">
-        <h1 class="title-lg">Lorem Ipsum Lor</h1>
-    </header>
+<header class="header">
+    <h1 class="title-lg">Lorem Ipsum Lor</h1>
+</header>
 
-    <main class="main">
-        <h2 class="title-md">Lorem Ipsum is simply dummy</h2>
-        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <hr class="separator">
-        <h3 class="title-sm">Número de estudiantes de informática por género</h3>
-        <div class="container-icons">
-            <button class="btn-men" id="btnMen">
-             <img src="icons/men.svg" alt="Hombres">
-            </button>
-            <button class="btn-women" id="btnWomen">
-                <img src="icons/women.svg" alt="Mujeres">
-            </button>
-            <button id="btnReset">Todo</button>
+<main class="main">
+    <h2 class="title-md">Lorem Ipsum is simply dummy</h2>
+    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+        galley of type and scrambled it to make a type specimen book.</p>
+    <hr class="separator">
+    <h3 class="title-sm">Número de estudiantes de informática por género</h3>
+    <div class="container-buttons">
+        <div class="row-buttons">
+            <button class="btn-men btn-gender" id="btnMen">Hombres</button>
+            <button class="btn-women btn-gender" id="btnWomen">Mujeres</button>
+            <button id="btnReset" class="btn-reset btn-gender underline">Ambos géneros</button>
         </div>
-        <canvas id="chart" width="200" height="100">
-        </canvas>
-    </main>
+    </div>
+    <canvas id="chart" width="200" height="100">
+    </canvas>
+</main>
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script src="script/data.js"></script>
-    <script src="script/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="script/data.js"></script>
+<script src="script/main.js"></script>
 </body>
 
 </html>

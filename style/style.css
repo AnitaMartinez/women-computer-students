@@ -16,13 +16,13 @@ button {
     border : none;
     background: none;
     outline: inherit;
+    font-family: inherit;
+    font-weight: inherit;
 }
 
-button:hover {
-    opacity: 0.5;
+.underline {
+    text-decoration: underline;
 }
-
-
 
 /*Header*/
 
@@ -43,14 +43,56 @@ button:hover {
 }
 
 .separator {
-    border : 3px solid #2E2E2E;
+    border : 3px solid #565656;
     margin-top: 25px;
     margin-bottom: 35px;
 }
 
-.container-icons {
-    margin-top : 20px;
+.container-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.row-buttons {
+    margin-top : 15px;
     margin-bottom: 20px;
+    background-color: #FFF;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.btn-gender {
+    font-size : 0.8rem;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.btn-men, .btn-women {
+    padding: 5px 15px;
+    color : #FFF;
+    width: 90px;
+    margin-right: -4px;
+    border-top : 1px solid transparent;
+    border-bottom : 1px solid transparent;
+}
+
+.btn-men {
+    background-color: #1FC3AA;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.btn-women {
+    background-color: #9900ff;
+}
+
+.btn-reset {
+    padding: 5px 20px 5px 15px;
+    border-top : 1px solid #333;
+    border-bottom: 1px solid #333;
+    border-right : 1px solid #333;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /*Typo*/

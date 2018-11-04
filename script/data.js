@@ -22,6 +22,7 @@ const getDataStudents = () => {
     })
 };
 
+
 const parsingData = data => {
     const studentsData = convertCSVtoJSON(data);
     for (const studentsPerOneYear of studentsData) {
