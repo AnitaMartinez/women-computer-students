@@ -39,7 +39,7 @@ button {
 /*Main*/
 
 .main {
-    padding: 15px;
+    padding: 30px 20px 0 20px;
 }
 
 .separator {
@@ -55,7 +55,7 @@ button {
 
 .row-buttons {
     margin-top : 15px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     background-color: #FFF;
     border-radius: 3px;
     display: inline-block;
@@ -80,10 +80,20 @@ button {
     background-color: #1FC3AA;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    transition: background-color ease-in-out 0.5s;
+}
+
+.btn-men:hover {
+    background-color: #1f9c83;
 }
 
 .btn-women {
     background-color: #9900ff;
+    transition: background-color ease-in-out 0.5s;
+}
+
+.btn-women:hover {
+    background-color: #6200c1;
 }
 
 .btn-reset {
@@ -93,12 +103,18 @@ button {
     border-right : 1px solid #333;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    transition: background-color ease-in-out 0.7s, border ease-in-out 0.7s;
+    background-color: #FFF;
+}
+
+.btn-reset:hover {
+    background-color: #efefef;
 }
 
 /*Typo*/
 
 .title-lg {
-    font-family: Knowledge,Source Sans Pro,Arial,sans-serif;
+    font-family: Knowledge, Source Sans Pro, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1.8rem;
@@ -112,8 +128,29 @@ button {
 }
 
 .title-sm {
-    font-family: Knowledge,Source Sans Pro,Arial,sans-serif;
+    font-family: Knowledge, Source Sans Pro, Arial, sans-serif;
     font-size : 0.8rem;
     text-transform: uppercase;
     color : #2E2E2E;
+}
+
+/*Media query*/
+
+@media screen and (max-width: 350px) {
+    .btn-men, .btn-women {
+        width: 76px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        padding: 30px 50px 0 50px;
+    }
+}
+
+@media screen and (min-width: 1020px) {
+    .main {
+        width : 800px;
+        margin : auto;
+    }
 }

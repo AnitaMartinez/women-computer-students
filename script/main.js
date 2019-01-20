@@ -52,7 +52,7 @@
                     yAxes: [{
                         stacked: true,
                         ticks : {
-                            fontColor : "#2E2E2E"
+                            fontColor : "#2E2E2E",
                         }
                     }]
                 }
