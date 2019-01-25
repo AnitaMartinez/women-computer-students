@@ -1,4 +1,4 @@
-'use strict'; //???
+'use strict';
 
 const getDataStudents = () => {
     return new Promise((resolve, reject) => {
@@ -8,17 +8,19 @@ const getDataStudents = () => {
         const urls = [];
         for (let firstYearOfSchoolYear = firstYear; firstYearOfSchoolYear <= lastYear; firstYearOfSchoolYear++) {
             let secondYearOfSchoolYear = firstYearOfSchoolYear + 1;
-            urls.push(`http://localhost:8080/csv/${firstYearOfSchoolYear}-${secondYearOfSchoolYear}.csv`);
+            urls.push(`/csv/${firstYearOfSchoolYear}-${secondYearOfSchoolYear}.csv`);
         }
-        Promise.all(urls.map(url =>
-            fetch(url).then(resp => resp.text())
+        Promise.all(
+            urls.map(url => fetch(url)
+                .then(resp => resp.text())
         )).then(texts => {
             texts.forEach(text => {
                 studentsPerYear.push(parsingData(text));
             });
             resolve(studentsPerYear);
+        }).catch(error => {
+            console.log('Error: ', error.message);
         })
-
     })
 };
 

@@ -110,7 +110,7 @@
         .then(dataStudents => {
             console.log('dataStudents', dataStudents);
             studentsPerYear = dataStudents;
-            dataStudents.shift(); //TODO: temporal, por el NaN
+            dataStudents.shift(); //TODO: temporal, because of NaN
             studentsPerYear = {women: [], men: [], year: []};  //TODO : DATA.JS
             dataStudents.forEach(studentsOneYear => {
                 let women = 0;
